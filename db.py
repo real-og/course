@@ -1,10 +1,6 @@
-import sqlite3
-import time
-import math
-import re
-from flask import url_for
 import psycopg2
 import os
+from psycopg2.extras import DictCursor
 
 class Database(object):
     def __init__(self):
@@ -15,7 +11,7 @@ class Database(object):
             host=str(os.environ.get('host')),
             port=str(os.environ.get('port'))
         )
-        self.curs = self.conn.cursor()
+        self.curs = self.conn.cursor(cursor_factory=DictCursor)
 
     def __enter__(self):
         return self.curs
@@ -24,18 +20,16 @@ class Database(object):
         self.conn.commit()
         self.conn.close()
 
-def getPassHashByEmail(email):
-    with Database() as curs:
-        _SQL = f"""SELECT password FROM users WHERE email = '{email}';"""
-        curs.execute(_SQL)
-        res = curs.fetchall()
-        if len(res) > 0:
-            return res[0][0]
-        return None
-
-def addUser(name, email, password, age):
+def add_user(name, email, password, age):
     with Database() as curs:
         _SQL = f"""INSERT INTO users (name, email, password, age)
-                   VALUES ('{name}', '{email}', '{password}', {age})"""
+                   VALUES ('{name}', '{email}', '{password}', {age});"""
         curs.execute(_SQL)
+
+def get_user_by_email(email):
+    with Database() as curs:
+        _SQL = f"""SELECT * FROM users WHERE email = '{email}' LIMIT 1;"""
+        curs.execute(_SQL)
+        return curs.fetchone()
+
         
