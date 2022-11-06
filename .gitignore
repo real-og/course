@@ -1,1 +1,8 @@
 test.py
+__pycache__
+flsite.py
+flsite.db
+framework-flask-intro.htm
+.env
+test.sql
+trash
