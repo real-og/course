@@ -5,18 +5,15 @@ from flask_login import LoginManager, login_user, login_required, logout_user, c
 import db
 from user import User
 
-# DATABASE = '/tmp/flsite.db'
+#app config
 DEBUG = True
 SECRET_KEY = os.environ.get('secret_key')
-
 app = Flask(__name__)
 app.config.from_object(__name__)
-#app.config.update(dict(DATABASE=os.path.join(app.root_path,'flsite.db')))
-
 login_manager = LoginManager(app)
-# to where client is directed when trying to get something unauth
+
+# what to say and to where redirect when unauth person trying to visit somethig special
 login_manager.login_view = 'login'
-# what we say to client when unauth
 login_manager.login_message = "Авторизуйтесь для доступа к закрытым страницам"
 login_manager.login_message_category = "success"
 
@@ -25,10 +22,11 @@ def load_user(email):
     return User().init_by_email(email)
 
 
-
 @app.route("/")
 def index():
-    return render_template('index.html')
+    if current_user.is_authenticated:
+        return redirect(url_for('profile'))
+    return render_template('welcome.html')
 
 
 @app.route("/login", methods=['POST', 'GET'])
@@ -49,6 +47,14 @@ def login():
     return render_template('login.html')
 
 
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    flash("Ты вышел, бра", 'success')
+    return redirect(url_for('login'))
+
+
 @app.route("/register", methods=["POST", "GET"])
 def register():
     if request.method == "POST":
@@ -67,13 +73,6 @@ def register():
 @login_required
 def profile():
     return render_template("profile.html", info=str(current_user.get_name()))
-
-@app.route('/logout')
-@login_required
-def logout():
-    logout_user()
-    flash("Ты вышел, бра", 'success')
-    return redirect(url_for('login'))
 
 
 if __name__ == "__main__":
