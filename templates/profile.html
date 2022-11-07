@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{{ super() }}
+{% for cat, msg in get_flashed_messages(True) %}
+<div class="flash {{cat}}">{{msg}}</div>
+{% endfor %}
+<div>User info: {{info}}</div>
+<p><a href="{{url_for('logout')}}">выйти</a></p>
+{% endblock %}

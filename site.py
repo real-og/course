@@ -14,9 +14,12 @@ app.config.from_object(__name__)
 #app.config.update(dict(DATABASE=os.path.join(app.root_path,'flsite.db')))
 
 login_manager = LoginManager(app)
-# login_manager.login_view = 'login'
-# login_manager.login_message = "Авторизуйтесь для доступа к закрытым страницам"
-# login_manager.login_message_category = "success"
+# to where client is directed when trying to get something unauth
+login_manager.login_view = 'login'
+# what we say to client when unauth
+login_manager.login_message = "Авторизуйтесь для доступа к закрытым страницам"
+login_manager.login_message_category = "success"
+
 @login_manager.user_loader
 def load_user(email):
     return User().init_by_email(email)
@@ -30,11 +33,17 @@ def index():
 
 @app.route("/login", methods=['POST', 'GET'])
 def login():
+            
+    if current_user.is_authenticated:
+        return redirect(url_for('profile'))
+
     if request.method == 'POST':
         user_dict = db.get_user_by_email(request.form['email'])
+        remember = True if request.form.get('remainme') else False
+        print(remember)
         if user_dict and check_password_hash(user_dict['password'], request.form['password']):
-            login_user(User().init_by_dict(user_dict))
-            return redirect(url_for('index'))
+            login_user(User().init_by_dict(user_dict), remember=remember)
+            return redirect(request.args.get('next') or url_for('profile'))
         else:
             flash('Неверный логин, пароль', 'error')
     return render_template('login.html')
@@ -57,8 +66,14 @@ def register():
 @app.route('/profile')
 @login_required
 def profile():
-    return "I'M IN BITCHEZ"
+    return render_template("profile.html", info=str(current_user.get_name()))
 
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    flash("Ты вышел, бра", 'success')
+    return redirect(url_for('login'))
 
 
 if __name__ == "__main__":

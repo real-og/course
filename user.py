@@ -18,5 +18,8 @@ class User():
     def is_anonymous(self):
         return False
 
+    def get_name(self):
+        return self.__user['name']
+
     def get_id(self):
         return str(self.__user['email'])
