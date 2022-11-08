@@ -52,7 +52,7 @@ def login():
 def logout():
     logout_user()
     flash("Ты вышел, бра", 'success')
-    return redirect(url_for('login'))
+    return redirect(url_for('index'))
 
 
 @app.route("/register", methods=["POST", "GET"])
@@ -61,18 +61,48 @@ def register():
         if len(request.form['email']) > 0 and len(request.form['psw']) > 0 \
             and request.form['psw'] == request.form['psw2']:
             hash = generate_password_hash(request.form['psw'])
-            db.add_user(request.form['name'], request.form['email'], hash, 21)
+            db.add_user(request.form['name'], request.form['email'], hash, int(request.form['age']))
             flash("Зарегался, родной", 'success')
             return redirect(url_for('login'))
         else:
             flash("Неверно заполнены поля", "error")
-    return render_template("register.html", title="Регистрация")
+    return render_template("register.html")
 
 
 @app.route('/profile')
 @login_required
 def profile():
-    return render_template("profile.html", info=str(current_user.get_name()))
+    return render_template("profile.html", info=current_user.get_user())
+
+@app.route('/dictionary')
+@login_required
+def dictionary():
+    return render_template("dictionary.html", words=['apple'], words_unknown=['asset'], tracks=['Maru Nara twox'])
+
+@app.route('/study', methods=["POST", "GET"])
+@login_required
+def study():
+    if request.method == "POST":
+        uuid = request.form['track_name'] + request.form['author']
+        return redirect(url_for('study_track',  track_uuid=uuid))
+    return render_template("study.html")
+
+@app.route('/study/<track_uuid>')
+@login_required
+def study_track(track_uuid):
+    return render_template("study_track.html", lyrics="text of song")
+
+@app.route('/train')
+@login_required
+def train():
+    return render_template("train.html", last_words=['err', 'rter'])
+
+@app.route('/rating')
+@login_required
+def rating():
+    return render_template("rating.html", users=['user1', 'user2'])
+
+
 
 
 if __name__ == "__main__":

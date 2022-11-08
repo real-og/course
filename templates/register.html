@@ -1,15 +1,46 @@
- {% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
 
-{% block content %}
-{{ super() }}
-{% for cat, msg in get_flashed_messages(True) %}
-<div class="flash {{cat}}">{{msg}}</div>
-{% endfor %}
-<form action="/register" method="post" class="form-contact">
-<p><label>Имя: </label> <input type="text" name="name" value="" required />
-<p><label>Email: </label> <input type="text" name="email" value="" required />
-<p><label>Пароль: </label> <input type="password" name="psw" value="" required />
-<p><label>Повтор пароля: </label> <input type="password" name="psw2" value="" required />
-<p><input type="submit" value="Регистрация" />
-</form>
-{% endblock %}
+<head>
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    {% for cat, msg in get_flashed_messages(True) %}
+    <div class="flash {{cat}}">{{msg}}</div>
+    {% endfor %}
+    <form action="" method="post" class="form-contact">
+        <div class="container">
+            <h1>Регистрация</h1>
+            <p>Введите данные</p>
+            <hr>
+            <label for="name"><b>Name</b></label>
+            <input type="text" placeholder="Enter Name" name="name" required>
+
+            <label for="age"><b>Age</b></label>
+            <input type="text" placeholder="Enter Age" name="age" required>
+
+            <label for="email"><b>Email</b></label>
+            <input type="text" placeholder="Enter Email" name="email" required>
+
+            <label for="psw"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="psw" required>
+
+            <label for="psw2"><b>Repeat Password</b></label>
+            <input type="password" placeholder="Repeat Password" name="psw2" required>
+            <hr>
+            <p><input type="submit" value="Зарегистрироваться" />
+            
+
+            
+        </div>
+
+        <div class="container signin">
+            <p>есть аккаунт?<a href="{{url_for('login')}}">войти</a></p>
+        </div>
+    </form>
+
+</body>
+
+</html>

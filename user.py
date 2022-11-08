@@ -18,6 +18,13 @@ class User():
     def is_anonymous(self):
         return False
 
+    def get_user(self):
+        return self.__user
+
+    def get_age(self):
+        return self.__user['age']
+
+
     def get_name(self):
         return self.__user['name']
 

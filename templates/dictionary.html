@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{{ super() }}
+{% for cat, msg in get_flashed_messages(True) %}
+    <div class="flash {{cat}}">{{msg}}</div>
+{% endfor %}
+
+<div>Знаю слова</div>
+{% for word in words %}
+    <br>
+    word
+{% endfor %}
+
+<div>Не знаю слова</div>
+{% for word in words_unknown %}
+<br>
+word
+{% endfor %}
+
+<div>Треки</div>
+{% for track in tracks%}
+<br>
+track
+{% endfor %}
+
+<a class="btn-danger" href="/profile" role="button">Профиль</a>
+<a class="btn-danger" href="/study" role="button">Выучить новое</a>
+<a class="btn-danger" href="/rating" role="button">Рейтинг</a>
+<hr>
+{% endblock %}
