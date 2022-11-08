@@ -4,6 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 import db
 from user import User
+import logic
 
 #app config
 DEBUG = True
@@ -83,14 +84,15 @@ def dictionary():
 @login_required
 def study():
     if request.method == "POST":
-        uuid = request.form['track_name'] + request.form['author']
+        uuid = logic.create_url(request.form['author'] + ' ' + request.form['track_name'], start='')
         return redirect(url_for('study_track',  track_uuid=uuid))
     return render_template("study.html")
 
 @app.route('/study/<track_uuid>')
 @login_required
 def study_track(track_uuid):
-    return render_template("study_track.html", lyrics="text of song")
+    lyrics = logic.LyricsParser('https://genius.com/' + track_uuid).get_lyrics()
+    return render_template("study_track.html", lyrics=lyrics)
 
 @app.route('/train')
 @login_required

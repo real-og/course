@@ -7,6 +7,8 @@ name = "pypi"
 flask = "*"
 flask-login = "*"
 psycopg2-binary = "*"
+requests = "*"
+beautifulsoup4 = "*"
 
 [dev-packages]
 
