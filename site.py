@@ -78,7 +78,9 @@ def profile():
 @app.route('/dictionary')
 @login_required
 def dictionary():
-    return render_template("dictionary.html", words=['apple'], words_unknown=['asset'], tracks=['Maru Nara twox'])
+    words = db.get_words_by_user(current_user.get_id())
+    print(words)
+    return render_template("dictionary.html", words=words, tracks=['Maru Nara twox'])
 
 @app.route('/study', methods=["POST", "GET"])
 @login_required
@@ -102,7 +104,7 @@ def train():
 @app.route('/rating')
 @login_required
 def rating():
-    return render_template("rating.html", users=['user1', 'user2'])
+    return render_template("rating.html", users=db.get_top_by_words())
 
 
 

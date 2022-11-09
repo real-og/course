@@ -6,13 +6,32 @@
     <div class="flash {{cat}}">{{msg}}</div>
 {% endfor %}
 
-{% for user in users%}
+<div style="width: 51%; margin: auto;">
+    <table class="table table-sm table-dark">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">email</th>
+            <th scope="col">кол-во слов</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <th scope="row">1</th>
+                <td>{{user[0]}}</td>
+                <td>{{user[1]}}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+</div>
 
-user
+<a class="btn-danger" href="/profile" role="button">Профиль</a>
+<a class="btn-danger" href="/study" role="button">Выучить новое</a>
+<a class="btn-danger" href="/rating" role="button">Рейтинг</a>
+<hr>
 
-
-{% endfor %}
-<p><a href="{{url_for('profile')}}">Профиль</a>
 
 
 {% endblock %}

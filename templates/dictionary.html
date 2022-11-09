@@ -5,24 +5,26 @@
 {% for cat, msg in get_flashed_messages(True) %}
     <div class="flash {{cat}}">{{msg}}</div>
 {% endfor %}
-
-<div>Знаю слова</div>
-{% for word in words %}
-    <br>
-    word
-{% endfor %}
-
-<div>Не знаю слова</div>
-{% for word in words_unknown %}
-<br>
-word
-{% endfor %}
-
-<div>Треки</div>
-{% for track in tracks%}
-<br>
-track
-{% endfor %}
+<div style="width: 51%; margin: auto;">
+    <table class="table table-sm table-dark">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Слово</th>
+            <th scope="col">Перевод</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for word in words %}
+            <tr>
+                <th scope="row">1</th>
+                <td>{{word[0]}}</td>
+                <td>{{word[1]}}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+</div>
 
 <a class="btn-danger" href="/profile" role="button">Профиль</a>
 <a class="btn-danger" href="/study" role="button">Выучить новое</a>
