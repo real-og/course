@@ -99,10 +99,11 @@ def get_words_by_user(email):
 
 def get_top_by_words():
     with Database() as curs:
-        _SQL =f"""select  email, count(email)
-                  from users inner join user_word
-                  on users.id = user_word.iduser
-                  group by email order by count(email) desc limit 20;"""
+        _SQL =f"""select name, count  
+                  from users inner join 
+                  (select  email, count(email) 
+                  from users inner join user_word on users.id = user_word.iduser 
+                  group by email order by count(email)) as e on users.email=e.email order by count desc limit 20;"""
         curs.execute(_SQL)
         return curs.fetchall()
 
