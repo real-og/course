@@ -1,48 +1,34 @@
-<!DOCTYPE html>
-<html>
+{% extends 'base.html' %}
 
-<head>
-    <link rel="stylesheet" href="../static/css/styles.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
+{% block content %}
+{{ super() }}
 
-<body>
-    {% for cat, msg in get_flashed_messages(True) %}
-    <div class="flash {{cat}}">{{msg}}</div>
-    {% endfor %}
-
-    
-    <form action="" method="post" class="form-contact">
-        <div class="container">
-            <h1>Регистрация</h1>
-            <p>Введите данные</p>
-            <hr>
-            <label for="name"><b>Name</b></label>
-            <input type="text" placeholder="Enter Name" name="name" required>
-
-            <label for="age"><b>Age</b></label>
-            <input type="text" placeholder="Enter Age" name="age" required>
-
+<body class="reg_body">
+    <div class="register">
+        <h1>Регистрация</h1>
+        <form action="" method="post" class="form-contact">
             <label for="email"><b>Email</b></label>
-            <input type="text" placeholder="Enter Email" name="email" required>
+            <input name="email" type="text" placeholder="Email" required="required" />
+
+            <label for="name"><b>Имя</b></label>
+            <input name="name" type="text" placeholder="Name" required="required" />
+
+            <label for="age"><b>Возраст</b></label>
+            <input type="text" placeholder="Enter Age" name="age" required>
 
             <label for="psw"><b>Password</b></label>
             <input type="password" placeholder="Enter Password" name="psw" required>
 
             <label for="psw2"><b>Repeat Password</b></label>
             <input type="password" placeholder="Repeat Password" name="psw2" required>
-            <hr>
-            <p><input type="submit" value="Зарегистрироваться" />
-            
 
-            
-        </div>
-
-        <div class="container signin">
-            <p>есть аккаунт?<a href="{{url_for('login')}}">войти</a></p>
-        </div>
-    </form>
+            <button type="submit" class="my-btn" >Регистрация</button>
+        </form>
+    </div>
+    <div style="position: absolute; top: 90%; left: 40%;">
+        <b>Есть аккаунт?</b>
+        <a class="my-btn" href="{{url_for('login')}}">Войти</a>
+    </div>
 
 </body>
-
-</html>
+{% endblock %}

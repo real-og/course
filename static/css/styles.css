@@ -12,7 +12,14 @@ body {
 }
 
 .login_body {
+	background-size: cover;
 	background-image: url(../images/back1_t.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+.reg_body {
+	background-size: cover;
+	background-image: url(../images/back2_t.png);
 	background-repeat: no-repeat;
 	background-position: center center;
 
@@ -29,13 +36,11 @@ table {
 
 
 
-.login {
+.login, .register {
 	position: absolute;
-	top: 50%;
+	top: 40%;
 	left: 50%;
 	margin: -150px 0 0 -150px;
-
-
 	width: 300px;
 	height: 400px;
 }
