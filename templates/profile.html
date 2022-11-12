@@ -5,22 +5,25 @@
 {% for cat, msg in get_flashed_messages(True) %}
 <div class="flash {{cat}}">{{msg}}</div>
 {% endfor %}
-<body>
 
-</body>
+<body class="profile_body">
+    <div style="padding: 4%; font-size: x-large;">
+        <a class="my-btn" href="/dictionary" role="button">Мои слова</a>
+        <a class="my-btn" href="/study" role="button">Выучить новое</a>
+        <a class="my-btn" href="/train" role="button">Тренировка</a>
+        <a class="my-btn" href="/rating" role="button">Рейтинг</a>
 
+        <a class="my-btn" href="{{url_for('logout')}}" role="button" style="margin-left: 18%;">Выйти</a>
+    </div>
+    <div class="info">
+        <div>Имя: {{info['name']}}</div>
+        <div>Возраст: {{info['age']}}</div>
+        <div>email: {{info['email']}}</div>
+        <div>С нами с: {{info['joindate']}}</div>
+        <div>role: {{info['role']}}</div>
+        <div>Выучил слов: {{word_count}}</div>
+    </div>  
 
-<div>name: {{info['name']}}</div>
-<div>age: {{info['age']}}</div>
-<div>email: {{info['email']}}</div>
-<div>date of join: {{info['joindate']}}</div>
-<div>role: {{info['role']}}</div>
-<a class="my-btn" href="/dictionary" role="button">Мои слова</a>
-<a class="my-btn" href="/study" role="button">Выучить новое</a>
-<a class="my-btn" href="/train" role="button">Тренировка</a>
-<a class="my-btn" href="/rating" role="button">Рейтинг</a>
-<hr>
-<p><a href="{{url_for('logout')}}">выйти</a></p>
 </body>
 
 

@@ -8,22 +8,19 @@
 <body class="login_body">
 
 <div class="login">
-    <h1>Авторизация</h1>
-      <form action="" method="post" class="form-contact">
-        <input name="email" type="text" placeholder="Email" required="required" />
-          <input type="password" name="password" placeholder="Password" required="required" />
-          <label for="remainme">Запомнить меня</label>
-          <input type="checkbox" name="remainme" title="Запомнить меня" style="width: auto;"/> 
-          <button type="submit" class="my-btn">Войти</button>
-      </form>
+      <h1>Авторизация</h1>
+        <form action="" method="post" class="form-contact">
+          <input name="email" type="text" placeholder="Email" required="required" />
+            <input type="password" name="password" placeholder="Password" required="required" />
+            <label for="remainme">Запомнить меня</label>
+            <input type="checkbox" name="remainme" title="Запомнить меня" style="width: auto;"/> 
+            <button type="submit" class="my-btn">Войти</button>
+        </form>
+    </div>
+
+  <div style="position: absolute; top: 90%; left: 40%;">
+    <b>Ещё нет аккаунта?</b>
+    <a class="my-btn" href="{{url_for('register')}}">Регистрация</a>
   </div>
-  
-<div style="position: absolute; top: 90%; left: 40%;">
-  <b>Ещё нет аккаунта?</b>
-  <a class="my-btn" href="{{url_for('register')}}">Регистрация</a>
-</div>
-
 </body>
-
-
 {% endblock %}

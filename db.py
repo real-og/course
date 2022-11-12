@@ -85,6 +85,15 @@ def delete_word_by_user(email, word):
                     and idword = (select id from words where word = '{word}');"""
         curs.execute(_SQL)
 
+def get_word_count_by_user(email):
+    with Database() as curs:
+        _SQL = f"""select count(*)
+                    from user_word inner join words
+                    on user_word.iduser = (select id from users where email = '{email}')
+                    and user_word.idword = words.id;"""
+        curs.execute(_SQL)
+        return curs.fetchone()[0]
+
 def get_words_by_user(email):
     with Database() as curs:
         _SQL = f"""select word, translate
