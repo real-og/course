@@ -5,6 +5,7 @@
 {% for cat, msg in get_flashed_messages(True) %}
     <div class="flash {{cat}}">{{msg}}</div>
 {% endfor %}
+<body>
 <div style="width: 51%; margin: auto;">
     <table class="table table-sm table-dark">
         <thead>
@@ -25,9 +26,9 @@
         </tbody>
       </table>
 </div>
-
-<a class="btn-danger" href="/profile" role="button">Профиль</a>
-<a class="btn-danger" href="/study" role="button">Выучить новое</a>
-<a class="btn-danger" href="/rating" role="button">Рейтинг</a>
+</body>
+<a class="my-btn" href="/profile" role="button">Профиль</a>
+<a class="my-btn" href="/study" role="button">Выучить новое</a>
+<a class="my-btn" href="/rating" role="button">Рейтинг</a>
 <hr>
 {% endblock %}

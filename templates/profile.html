@@ -5,7 +5,9 @@
 {% for cat, msg in get_flashed_messages(True) %}
 <div class="flash {{cat}}">{{msg}}</div>
 {% endfor %}
+<body>
 
+</body>
 
 
 <div>name: {{info['name']}}</div>
@@ -13,13 +15,13 @@
 <div>email: {{info['email']}}</div>
 <div>date of join: {{info['joindate']}}</div>
 <div>role: {{info['role']}}</div>
-<a class="btn-danger" href="/dictionary" role="button">Мои слова</a>
-<a class="btn-danger" href="/study" role="button">Выучить новое</a>
-<a class="btn-danger" href="/train" role="button">Тренировка</a>
-<a class="btn-danger" href="/rating" role="button">Рейтинг</a>
+<a class="my-btn" href="/dictionary" role="button">Мои слова</a>
+<a class="my-btn" href="/study" role="button">Выучить новое</a>
+<a class="my-btn" href="/train" role="button">Тренировка</a>
+<a class="my-btn" href="/rating" role="button">Рейтинг</a>
 <hr>
 <p><a href="{{url_for('logout')}}">выйти</a></p>
-
+</body>
 
 
 {% endblock %}

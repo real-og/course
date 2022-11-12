@@ -37,7 +37,8 @@ def login():
         return redirect(url_for('profile'))
 
     if request.method == 'POST':
-        user_dict = db.get_user_by_email(request.form['email'])
+        email = request.form['email']
+        user_dict = db.get_user_by_email(email)
         remember = True if request.form.get('remainme') else False
         print(remember)
         if user_dict and check_password_hash(user_dict['password'], request.form['password']):

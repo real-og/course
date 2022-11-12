@@ -5,12 +5,14 @@
 {% for cat, msg in get_flashed_messages(True) %}
     <div class="flash {{cat}}">{{msg}}</div>
 {% endfor %}
+<body></body>
 <form action="" method="post" class="form-contact">
     <p><label>Название песни: </label> <input type="text" name="track_name" value="" required />
     <p><label>Исполнитель</label> <input type="text" name="author" value="" required />
 
     <p><input type="submit" value="Найти" />
     <hr align=left width="300px">
-    <p><a href="{{url_for('profile')}}">Профиль</a>
+    <p><a class="my-btn" href="{{url_for('profile')}}">Профиль</a>
     </form>
+</body>
 {% endblock %}

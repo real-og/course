@@ -1,7 +1,8 @@
 .my-btn {
+   margin: 12px;
     background-color: #E5000F;
     color: white;
-    padding: 5px 5px;
+    padding: 7px 7px;
     text-decoration: none;
     border-radius: 9px;
     font-family: Andale Mono, monospace;
