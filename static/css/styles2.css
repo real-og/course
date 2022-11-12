@@ -1,0 +1,16 @@
+html, body {
+    height: 100%;
+  }
+
+body {
+    background: linear-gradient(181deg,white, #606060) no-repeat;
+}
+
+table {
+    counter-reset: section;
+  }
+  
+  .count:before {
+    counter-increment: section;
+    content: counter(section);
+  }

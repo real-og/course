@@ -1,49 +1,59 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="ru">
 
-{% block content %}
-{{ super() }}
-<div class="jumbotron jumbotron-fluid">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="../static/css/button.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+
+<body>
+  <div class="jumbotron jumbotron-fluid">
     <div class="container">
-        <p style="text-align:right" >
-            <a class="btn-danger" href="/register" role="button">Регистрация</a>
-        </p>
-        <p style="text-align:right" >
-            <a class="btn-danger" href="/login" role="button">Войти</a>
-        </p>
-        <h1 class="display-3">Enjoy Music and learn English</h1>
-        <p class="lead" style="color: #E5000F">
-            Улучшай аудирование, расширяй словарный запас и музыкальную грамотность вместе с GeniusEnglish
-        </p>
+      <div style="text-align: right">
+        <a class="my-btn" href="/register" role="button">Регистрация</a>
+        <a class="my-btn" href="/login" role="button">Войти</a>
+      </div>
+      <h1 class="display-3" style="font-family: Andale Mono">Enjoy Music and learn English</h1>
+      <p class="lead" style="color: #E5000F; font-family: Andale Mono, monospace">
+        Улучшай аудирование, расширяй словарный запас и музыкальную грамотность вместе с GeniusEnglish
+      </p>
     </div>
-</div>
-<div class="container">
+  </div>
+  <div class="container">
     <div class="row">
       <div class="col-sm-6 col-lg-3">
         <div class="card">
-            <img class="card-img-top" alt="Card header image" src="static/images/asap.jpg">
+          <img class="card-img-top" alt="Card header image" src="static/images/asap.jpg">
         </div>
       </div>
       <div class="col-sm-6 col-lg-3">
         <div class="card">
-            <img class="card-img-top" alt="Card header image" src="static/images/pepper.jpg">
+          <img class="card-img-top" alt="Card header image" src="static/images/pepper.jpg">
         </div>
       </div>
       <div class="col-sm-6 col-lg-3">
         <div class="card">
-            <img class="card-img-top" alt="Card header image" src="static/images/bones.jpg">
+          <img class="card-img-top" alt="Card header image" src="static/images/bones.jpg">
         </div>
       </div>
       <div class="col-sm-6 col-lg-3">
         <div class="card">
-            <img class="card-img-top" alt="Card header image" src="static/images/kendrick.jpg">
+          <img class="card-img-top" alt="Card header image" src="static/images/kendrick.jpg">
         </div>
       </div>
     </div>
   </div>
   <div style="width: 51%; padding: 6%; font-family: Andale Mono, monospace; color: #E5000F; font-size: 150%;">
-    <p class="text-left">Регистрируйся, чтобы получить возможность примкнуть к людям, которые не тратят время на заучивание грамматики, а познают разговорный английский, слэнг</p>
+    <p class="text-left">Регистрируйся, чтобы получить возможность примкнуть к людям, которые не тратят время на
+      заучивание грамматики, а познают разговорный английский, слэнг</p>
   </div>
   <div style="padding-left: 51%; padding-right: 6%; font-family: Andale Mono, monospace; font-size: 150%;">
-    <p class="text-left">Знакомься со слэнгом, разговорным и уличным языков благодаря разборам специалистов. Тренируй слова и делись достижениями с друзьями.</p>
+    <p class="text-left">Знакомься со слэнгом, разговорным и уличным языков благодаря разборам специалистов. Тренируй
+      слова и делись достижениями с друзьями.</p>
   </div>
-{% endblock %}
+</body>
+
+</html>
