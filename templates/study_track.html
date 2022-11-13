@@ -5,8 +5,23 @@
 {% for cat, msg in get_flashed_messages(True) %}
     <div class="flash {{cat}}">{{msg}}</div>
 {% endfor %}
-{{lyrics}}
-<body>
-    <p><a class="my-btn" href="{{url_for('profile')}}">Профиль</a>
+<body class="learn_body">
+    <div class="head_btns">
+        <a class="my-btn" href="/dictionary" role="button">Мои слова</a>
+        <a class="my-btn" href="/study" role="button">Выучить новое</a>
+        <a class="my-btn" href="{{url_for('train')}}" role="button">Тренировка</a>
+        <a class="my-btn" href="{{url_for('rating')}}" role="button">Рейтинг</a>
+        <a class="my-btn" href="{{url_for('logout')}}" role="button" style="margin-left: 21%;">Выйти</a>
+    </div>
+    
+    <div class="lyrics">
+        {% autoescape false %}
+        {% for word in lyrics %}
+        <b>{{word}}</b>
+        {% endfor %}
+        {% endautoescape %}
+        <p><a class="my-btn" href="{{url_for('profile')}}">Какое-то действие</a>
+    </div>
+    
 </body>
 {% endblock %}

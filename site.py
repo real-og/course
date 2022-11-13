@@ -1,10 +1,11 @@
 import os
-from flask import Flask, render_template, request, g, flash, abort, redirect, url_for
+from flask import Flask, render_template, request, flash, redirect, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 import db
 from user import User
 import logic
+import json
 
 #app config
 DEBUG = True
@@ -80,7 +81,6 @@ def profile():
 @login_required
 def dictionary():
     words = db.get_words_by_user(current_user.get_id())
-    print(words)
     return render_template("dictionary.html", words=words, tracks=['Maru Nara twox'])
 
 @app.route('/study', methods=["POST", "GET"])
@@ -95,7 +95,8 @@ def study():
 @login_required
 def study_track(track_uuid):
     lyrics = logic.LyricsParser('https://genius.com/' + track_uuid).get_lyrics()
-    return render_template("study_track.html", lyrics=lyrics)
+    print(lyrics)
+    return render_template("study_track.html", lyrics=lyrics.replace('\n', ' <br> ').split(' '))
 
 @app.route('/train')
 @login_required
@@ -106,6 +107,13 @@ def train():
 @login_required
 def rating():
     return render_template("rating.html", users=db.get_top_by_words())
+
+@app.route('/add/', methods=['GET', 'POST'])
+def add():
+    if request.method == 'POST':
+        text = json.loads(request.data).get('text')
+        db.add_word_to_user(current_user.get_id(), text)
+        return 'nice'
 
 
 

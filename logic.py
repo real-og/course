@@ -24,7 +24,7 @@ class LyricsParser:
     def get_lyrics(self):
         lyrics = ''
         for block in self.lyrics_blocks:
-            lyrics = lyrics + block.get_text('\n')
+            lyrics = lyrics + '\n' + block.get_text('\n')
         return lyrics
 
     def get_word_list(self):

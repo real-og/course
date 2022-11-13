@@ -5,14 +5,20 @@
 {% for cat, msg in get_flashed_messages(True) %}
     <div class="flash {{cat}}">{{msg}}</div>
 {% endfor %}
-<body></body>
-<form action="" method="post" class="form-contact">
-    <p><label>Название песни: </label> <input type="text" name="track_name" value="" required />
-    <p><label>Исполнитель</label> <input type="text" name="author" value="" required />
+<body class="find_body">
+    <div class="head_btns">
+        <a class="my-btn" href="/dictionary" role="button">Мои слова</a>
+        <a class="my-btn" href="/study" role="button">Выучить новое</a>
+        <a class="my-btn" href="/train" role="button">Тренировка</a>
+        <a class="my-btn" href="/rating" role="button">Рейтинг</a>
 
-    <p><input type="submit" value="Найти" />
-    <hr align=left width="300px">
-    <p><a class="my-btn" href="{{url_for('profile')}}">Профиль</a>
+        <a class="my-btn" href="{{url_for('logout')}}" role="button" style="margin-left: 18%;">Выйти</a>
+    </div>
+    <form action="" method="post" class="login">
+        <label>Название песни: </label> <input type="text" name="track_name" value="" required />
+        <label>Исполнитель</label> <input type="text" name="author" value="" required />
+        <hr align=centre width="319px">
+        <input type="submit" value="Найти" style="width: 108%;"/>
     </form>
 </body>
 {% endblock %}

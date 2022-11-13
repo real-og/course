@@ -7,7 +7,7 @@
 {% endfor %}
 
 <body class="profile_body">
-    <div style="padding: 4%; font-size: x-large;">
+    <div class="head_btns">
         <a class="my-btn" href="/dictionary" role="button">Мои слова</a>
         <a class="my-btn" href="/study" role="button">Выучить новое</a>
         <a class="my-btn" href="/train" role="button">Тренировка</a>
@@ -22,7 +22,8 @@
         <div>С нами с: {{info['joindate']}}</div>
         <div>role: {{info['role']}}</div>
         <div>Выучил слов: {{word_count}}</div>
-    </div>  
+    </div> 
+    <button class="ut">ut</button>
 
 </body>
 
