@@ -13,15 +13,19 @@
         <a class="my-btn" href="{{url_for('rating')}}" role="button">Рейтинг</a>
         <a class="my-btn" href="{{url_for('logout')}}" role="button" style="margin-left: 21%;">Выйти</a>
     </div>
-    
+    <h1><b>{{name}}</b></h1>
     <div class="lyrics">
         {% autoescape false %}
         {% for word in lyrics %}
         <b>{{word}}</b>
         {% endfor %}
         {% endautoescape %}
-        <p><a class="my-btn" href="{{url_for('profile')}}">Какое-то действие</a>
+        
+
     </div>
+
+    <div style="padding: 3%; text-align: center;"><a class="my-btn" href="{{url_for('profile')}}">Добавить все</a></div>
+    
     
 </body>
 {% endblock %}

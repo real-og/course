@@ -95,8 +95,9 @@ def study():
 @login_required
 def study_track(track_uuid):
     lyrics = logic.LyricsParser('https://genius.com/' + track_uuid).get_lyrics()
-    print(lyrics)
-    return render_template("study_track.html", lyrics=lyrics.replace('\n', ' <br> ').split(' '))
+    if not len(lyrics):
+        lyrics = 'Упс, не смог найти...'
+    return render_template("study_track.html", lyrics=lyrics.replace('\n', ' <br> ').split(' '), name=track_uuid[:-7])
 
 @app.route('/train')
 @login_required
