@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import re
+import db
 
 # input is author + space + track name. if start default then Genius link otherwise simple uuid
 def create_url(input, start='https://genius.com/'):
@@ -21,7 +22,7 @@ class LyricsParser:
             self.soup = BeautifulSoup('bang', "html.parser")
         self.lyrics_blocks = self.soup.findAll(class_="Lyrics__Container-sc-1ynbvzw-6 YYrds") 
 
-    def get_lyrics(self):
+    def get_lyrics(self) -> str:
         lyrics = ''
         for block in self.lyrics_blocks:
             lyrics = lyrics + '\n' + block.get_text('\n')
@@ -32,3 +33,21 @@ class LyricsParser:
         for block in self.lyrics_blocks:
             words = words + re.findall('[’a-z$\'-]+', block.get_text('\n').lower())
         return words
+
+def get_unknown_by_user(email, words):
+    result = []
+    if type(words) == 'str':
+        words = words.split()
+    known = db.get_words_by_user(email)
+    known_english_words = [c[0] for c in known]
+    for word in words:
+        word = prettify_word(word)
+        if not(word in known_english_words) and not(word in result):
+            result.append(prettify_word(word))
+    return result
+
+def prettify_word(word):
+    symbols = '!.,&?[]1234567890:;())@#%^*+=~…—'
+    for s  in symbols:
+        word = word.replace(s, '')
+    return word.replace('$', 's').lower().replace("`", "’").replace("'", "’")

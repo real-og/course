@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{{ super() }}
+{% for cat, msg in get_flashed_messages(True) %}
+    <div class="flash {{cat}}">{{msg}}</div>
+{% endfor %}
+<body class="pick_body">
+    <div class="head_btns">
+        <a class="my-btn" href="/dictionary" role="button">Мои слова</a>
+        <a class="my-btn" href="/study" role="button">Выучить новое</a>
+        <a class="my-btn" href="/train" role="button">Тренировка</a>
+        <a class="my-btn" href="/rating" role="button">Рейтинг</a>
+        <a class="my-btn" href="{{url_for('logout')}}" role="button" style="margin-left: 18%;">Выйти</a>
+    </div>
+    <hr>
+    <h2><b>Выбирай знакомые!</b></h2>
+    <h4>[незнакомых слов: {{count}}]</h4>
+    <div class="lyrics" style="padding-left: 25%;padding-right: 25%;text-align: justify;">
+        {% autoescape false %}
+        {% for word in unknown %}
+        <b>{{word}}</b>
+        {% endfor %}
+        {% endautoescape %}
+    </div>
+
+</body>
+
+{% endblock %}

@@ -2,6 +2,7 @@ import psycopg2
 import os
 from psycopg2.extras import DictCursor
 from deep_translator import GoogleTranslator
+import logic
 
 
 translator = GoogleTranslator(source='en', target='ru')
@@ -40,14 +41,14 @@ def add_word(word):
     if check_word(word):
         return False
     with Database() as curs:
-        word = word.replace("`", "’").replace("'", "’")
+        word = logic.prettify_word(word)
         trans = translator.translate(word) 
         _SQL = f"INSERT INTO words (word, translate) VALUES ('{word}', '{trans}');"
         curs.execute(_SQL)
         return True
 
 def check_word(word):
-    word = word.replace("`", "’").replace("'", "’")
+    word = logic.prettify_word(word)
     with Database() as curs:
         _SQL = f"SELECT word FROM words WHERE word = '{word}';"
         curs.execute(_SQL)
@@ -57,7 +58,7 @@ def check_word(word):
 
 def add_word_to_user(email, word):
     with Database() as curs:
-        word = word.replace("`", "’").replace("'", "’")
+        word = logic.prettify_word(word)
         if not check_word(word):
             add_word(word)
         _SQL = f"""insert into user_word (iduser, idword)
@@ -66,9 +67,43 @@ def add_word_to_user(email, word):
                     words.word = '{word}' and users.email = '{email}';"""
         curs.execute(_SQL)
 
+def delete_word_from_user(email, word):
+    with Database() as curs:
+        word = logic.prettify_word(word)
+        _SQL = f"""delete from user_word
+                   where idword = (select id from words where word='{word}')
+                   and iduser = (select id from users where email='{email}');"""
+        curs.execute(_SQL)
+
+def add_song_to_user(email, name, author):
+    with Database() as curs:
+        if not check_song(name, author):
+            add_song(name, author)
+        _SQL = f"""insert into song_user (iduser, idsong)
+                    select users.id, songs.id
+                    from users inner join songs on
+                    songs.name = '{name}' and users.email = '{email}' and songs.author = '{author}';"""
+        curs.execute(_SQL)
+
+def add_song(name, author):
+    if check_song(name, author):
+        return False
+    with Database() as curs: 
+        _SQL = f"INSERT INTO songs (name, author) VALUES ('{name}', '{author}');"
+        curs.execute(_SQL)
+        return True
+
+def check_song(name, author):
+    with Database() as curs:
+        _SQL = f"SELECT * FROM songs WHERE name = '{name}' and author = '{author}';"
+        curs.execute(_SQL)
+        if len(curs.fetchall()) == 0:
+            return False
+        return True
+
 def check_word_by_user(email, word):
     with Database() as curs:
-        word = word.replace("`", "’").replace("'", "’")
+        word = logic.prettify_word(word)
         _SQL = f"""select * from user_word where 
                     iduser = (select id from users where email = '{email}')
                     and idword = (select id from words where word = '{word}');"""
@@ -79,7 +114,7 @@ def check_word_by_user(email, word):
 
 def delete_word_by_user(email, word):
     with Database() as curs:
-        word = word.replace("`", "’").replace("'", "’")
+        word = logic.prettify_word(word)
         _SQL = f"""delete from user_word where
                     iduser = (select id from users where email = '{email}')
                     and idword = (select id from words where word = '{word}');"""
@@ -94,7 +129,7 @@ def get_word_count_by_user(email):
         curs.execute(_SQL)
         return curs.fetchone()[0]
 
-def get_words_by_user(email):
+def get_words_by_user(email) -> list(()):
     with Database() as curs:
         _SQL = f"""select word, translate
                     from user_word inner join words
@@ -115,5 +150,7 @@ def get_top_by_words():
                   group by email order by count(email)) as e on users.email=e.email order by count desc limit 20;"""
         curs.execute(_SQL)
         return curs.fetchall()
+
+
 
         

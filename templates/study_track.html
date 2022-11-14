@@ -3,7 +3,7 @@
 {% block content %}
 {{ super() }}
 {% for cat, msg in get_flashed_messages(True) %}
-    <div class="flash {{cat}}">{{msg}}</div>
+    <div class="flash {{cat}}" >{{msg}}</div>
 {% endfor %}
 <body class="learn_body">
     <div class="head_btns">
@@ -14,18 +14,23 @@
         <a class="my-btn" href="{{url_for('logout')}}" role="button" style="margin-left: 21%;">Выйти</a>
     </div>
     <h1><b>{{name}}</b></h1>
+    <h4>[незнакомых слов: {{count}}]</h4>
     <div class="lyrics">
         {% autoescape false %}
         {% for word in lyrics %}
         <b>{{word}}</b>
         {% endfor %}
         {% endautoescape %}
-        
-
     </div>
-
-    <div style="padding: 3%; text-align: center;"><a class="my-btn" href="{{url_for('profile')}}">Добавить все</a></div>
-    
-    
+    <div style="padding: 3%; text-align: center;">
+        <a class="my-btn" href="{{url_for('show_new', track_uuid=name + '-lyrics')}}">Показать незнакомые</a>
+        <div>
+            <form action="" method="post">
+                <input name="author" type="hidden" value="{{track_name}}"/>
+                <input name="track_name" type="hidden"  value="{{author}}"/>
+                <button type="submit" class="my-btn">Добавить трек</button>
+            </form>
+        </div>
+    </div>
 </body>
 {% endblock %}
