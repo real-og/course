@@ -151,6 +151,13 @@ def get_top_by_words():
         curs.execute(_SQL)
         return curs.fetchall()
 
+def get_songs_by_artists(artists: list | tuple):
+    with Database() as curs:
+        _SQL =f"select * from songs where author IN ("
+        for artist in artists:
+            _SQL += f"'{artist}', "
 
+        curs.execute(_SQL[:-2] + ');')
+        return curs.fetchall()
 
         

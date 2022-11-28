@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{{ super() }}
+{% for cat, msg in get_flashed_messages(True) %}
+    <div class="flash {{cat}}" style="position: absolute;">{{msg}}</div>
+{% endfor %}
+<body class="dict_body">
+  <div class="head_btns">
+    <a class="my-btn" href="/dictionary" role="button">Мои слова</a>
+    <a class="my-btn" href="/study" role="button">Выучить новое</a>
+    <a class="my-btn" href="/train" role="button">Тренировка</a>
+    <a class="my-btn" href="/rating" role="button">Рейтинг</a>
+
+    <a class="my-btn" href="{{url_for('logout')}}" role="button" style="margin-left: 18%;">Выйти</a>
+</div>
+<hr>
+<h1><b>Ты уже выучил</b></h1>
+<div style="width: 51%; margin: auto;">
+    <table class="table table-sm table-dark">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Слово</th>
+            <th scope="col">Перевод</th>
+            <th scope="col" style="text-align: end;">Удалить</th>
+
+          </tr>
+        </thead>
+        <tbody>
+        {% for word in words %}
+            <tr class="dlt-row">
+                <td class="count"></th>
+                <td>{{word[0]}}</td>
+                <td>{{word[1]}}</td>
+                <td style="text-align: end;"><b>&#10008;</b></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+</div>
+</body>
+{% endblock %}

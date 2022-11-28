@@ -1,3 +1,4 @@
+
 .my-btn {
    margin: 12px;
     background-color: #E5000F;
@@ -6,4 +7,9 @@
     text-decoration: none;
     border-radius: 9px;
     font-family: Andale Mono, monospace;
+
+  }
+
+  .my-btn:hover {
+    text-decoration: none;
   }
