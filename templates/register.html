@@ -2,7 +2,9 @@
 
 {% block content %}
 {{ super() }}
-
+<!-- {% for cat, msg in get_flashed_messages(True) %}
+<div class="flash {{cat}}">{{msg}}</div>
+{% endfor %} -->
 <body class="reg_body">
     <div class="register">
         <h1>Регистрация</h1>

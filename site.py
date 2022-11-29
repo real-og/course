@@ -61,8 +61,10 @@ def logout():
 @app.route("/register", methods=["POST", "GET"])
 def register():
     if request.method == "POST":
-        if len(request.form['email']) > 0 and len(request.form['psw']) > 0 \
-            and request.form['psw'] == request.form['psw2']:
+        if len(request.form['email']) > 0 and len(request.form['psw']) > 0 and len(request.form['age']) > 0\
+            and '@' in request.form['email'] \
+            and request.form['psw'] == request.form['psw2'] \
+            and request.form['age'].isdigit() and len(request.form['age']) < 4:
             hash = generate_password_hash(request.form['psw'])
             db.add_user(request.form['name'], request.form['email'], hash, int(request.form['age']))
             return redirect(url_for('login'))
@@ -74,7 +76,10 @@ def register():
 @app.route('/profile')
 @login_required
 def profile():
-    return render_template("profile.html", info=current_user.get_user(), word_count=db.get_word_count_by_user(current_user.get_id()), song_count=db.get_song_count_by_user(current_user.get_id()))
+    return render_template("profile.html",
+                            info=current_user.get_user(),
+                            word_count=db.get_word_count_by_user(current_user.get_id()),
+                            song_count=db.get_song_count_by_user(current_user.get_id()))
 
 @app.route('/dictionary')
 @login_required
