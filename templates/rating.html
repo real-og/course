@@ -8,9 +8,9 @@
 
 <body class="rating_body">
   <div class="head_btns">
+    <a class="my-btn" href="/profile" role="button">Профиль</a>
     <a class="my-btn" href="/dictionary" role="button">Мои слова</a>
     <a class="my-btn" href="/study" role="button">Выучить новое</a>
-    <a class="my-btn" href="/train" role="button">Тренировка</a>
     <a class="my-btn" href="/rating" role="button">Рейтинг</a>
     <a class="my-btn" href="{{url_for('logout')}}" role="button" style="margin-left: 18%;">Выйти</a>
 </div>
@@ -30,8 +30,8 @@
         {% for user in users %}
             <tr>
                 <td class="count"></th>
-                <td>{{user[0]}}</td>
-                <td>{{user[1]}}</td>
+                <td>{{user['name']}}</td>
+                <td>{{user['count']}}</td>
             </tr>
         {% endfor %}
         </tbody>
