@@ -128,6 +128,15 @@ def get_word_count_by_user(email):
         curs.execute(_SQL)
         return curs.fetchone()['count(*)']
 
+def get_song_count_by_user(email):
+    with Database() as curs:
+        _SQL = f"""select count(*)
+                    from song_user inner join songs
+                    on song_user.iduser = (select id from users where email = '{email}')
+                    and song_user.idsong = songs.id;"""
+        curs.execute(_SQL)
+        return curs.fetchone()['count(*)']
+
 def get_words_by_user(email) -> list(()):
     with Database() as curs:
         _SQL = f"""select word, translate

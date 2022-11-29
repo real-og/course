@@ -74,7 +74,7 @@ def register():
 @app.route('/profile')
 @login_required
 def profile():
-    return render_template("profile.html", info=current_user.get_user(), word_count=db.get_word_count_by_user(current_user.get_id()))
+    return render_template("profile.html", info=current_user.get_user(), word_count=db.get_word_count_by_user(current_user.get_id()), song_count=db.get_song_count_by_user(current_user.get_id()))
 
 @app.route('/dictionary')
 @login_required
