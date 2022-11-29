@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS roles
 (
-    id serial primary key NOT NULL,
+    id int primary key NOT NULL AUTO_INCREMENT,
     name varchar(21) NOT NULL
 );
 
@@ -11,11 +11,11 @@ VALUES (1, 'admin'),
 
 CREATE TABLE IF NOT EXISTS users
 (
-    id serial primary key NOT NULL,
+    id int primary key NOT NULL AUTO_INCREMENT,
     name varchar(51),
     email varchar(51) NOT NULL,
     password varchar(111) NOT NULL,
-    joinDate timestamp default CURRENT_TIMESTAMP(1),
+    joinDate timestamp default NOW(),
     age int,
     isActive boolean NOT NULL default true,
     role int default 3,
@@ -24,14 +24,14 @@ CREATE TABLE IF NOT EXISTS users
 
 CREATE TABLE words
 (
-    id serial primary key NOT NULL,
+    id int primary key NOT NULL AUTO_INCREMENT,
     word varchar(21) NOT NULL,
     translate varchar(111)
 );
 
 CREATE TABLE songs
 (
-    id serial primary key NOT NULL,
+    id int primary key NOT NULL AUTO_INCREMENT,
     name varchar(41) NOT NULL,
     author varchar(41) NOT NULL default 'Undefined',
     album varchar(41) NOT NULL default 'Single'
@@ -39,7 +39,7 @@ CREATE TABLE songs
 
 CREATE TABLE user_word
 (
-    id serial primary key NOT NULL,
+    id int primary key NOT NULL AUTO_INCREMENT,
     idWord int NOT NULL,
     idUSER int NOT NULL,
     isKnown boolean,
@@ -49,13 +49,11 @@ CREATE TABLE user_word
 
 CREATE TABLE song_user
 (
-    id serial primary key NOT NULL,
+    id int primary key NOT NULL AUTO_INCREMENT,
     idSong int NOT NULL,
     idUSER int NOT NULL,
     isKnown boolean,
-    startDate timestamp default CURRENT_TIMESTAMP(1),
+    startDate timestamp default NOW(),
     FOREIGN KEY (idSong) REFERENCES songs (id) ON DELETE CASCADE,
     FOREIGN KEY (idUser) REFERENCES users (id) ON DELETE CASCADE
 );
-
--- GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO "course_user";

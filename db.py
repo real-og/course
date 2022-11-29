@@ -1,6 +1,5 @@
-import psycopg2
 import os
-from psycopg2.extras import DictCursor
+import mysql.connector
 from deep_translator import GoogleTranslator
 import logic
 
@@ -9,14 +8,14 @@ translator = GoogleTranslator(source='en', target='ru')
 
 class Database(object):
     def __init__(self):
-        self.conn = psycopg2.connect(
+        self.conn = mysql.connector.connect(
             database=str(os.environ.get('database')),
             user=str(os.environ.get('user')),
             password=str(os.environ.get('password')),
             host=str(os.environ.get('host')),
             port=str(os.environ.get('port'))
         )
-        self.curs = self.conn.cursor(cursor_factory=DictCursor)
+        self.curs = self.conn.cursor(dictionary=True)
 
     def __enter__(self):
         return self.curs
@@ -127,7 +126,7 @@ def get_word_count_by_user(email):
                     on user_word.iduser = (select id from users where email = '{email}')
                     and user_word.idword = words.id;"""
         curs.execute(_SQL)
-        return curs.fetchone()[0]
+        return curs.fetchone()['count(*)']
 
 def get_words_by_user(email) -> list(()):
     with Database() as curs:
@@ -137,15 +136,14 @@ def get_words_by_user(email) -> list(()):
                     and user_word.idword = words.id order by word;"""
         curs.execute(_SQL)
         res = curs.fetchall()
-
-        return [(tupl[0], tupl[1]) for tupl in res]
-        #return curs.fetchall()
+        return [(tupl['word'], tupl['translate']) for tupl in res]
+        
 
 def get_top_by_words():
     with Database() as curs:
         _SQL =f"""select name, count  
                   from users inner join 
-                  (select  email, count(email) 
+                  (select  email, count(email) as count 
                   from users inner join user_word on users.id = user_word.iduser 
                   group by email order by count(email)) as e on users.email=e.email order by count desc limit 20;"""
         curs.execute(_SQL)
@@ -156,7 +154,6 @@ def get_songs_by_artists(artists: list | tuple):
         _SQL =f"select * from songs where author IN ("
         for artist in artists:
             _SQL += f"'{artist}', "
-
         curs.execute(_SQL[:-2] + ');')
         return curs.fetchall()
 
