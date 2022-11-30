@@ -58,6 +58,8 @@ def check_word(word):
 def add_word_to_user(email, word):
     with Database() as curs:
         word = logic.prettify_word(word)
+        if check_word_by_user(email, word):
+            return
         if not check_word(word):
             add_word(word)
         _SQL = f"""insert into user_word (iduser, idword)
@@ -76,6 +78,8 @@ def delete_word_from_user(email, word):
 
 def add_song_to_user(email, name, author):
     with Database() as curs:
+        if check_song_by_user(email, name, author):
+            return
         if not check_song(name, author):
             add_song(name, author)
         _SQL = f"""insert into song_user (iduser, idsong)
@@ -95,6 +99,16 @@ def add_song(name, author):
 def check_song(name, author):
     with Database() as curs:
         _SQL = f"SELECT * FROM songs WHERE name = '{name}' and author = '{author}';"
+        curs.execute(_SQL)
+        if len(curs.fetchall()) == 0:
+            return False
+        return True
+
+def check_song_by_user(email, name, author):
+    with Database() as curs:
+        _SQL = f"""select * from song_user where 
+                    iduser = (select id from users where email = '{email}')
+                    and idsong = (select id from songs where name = '{name}' and author = '{author}');"""
         curs.execute(_SQL)
         if len(curs.fetchall()) == 0:
             return False

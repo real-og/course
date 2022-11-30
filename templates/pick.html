@@ -2,9 +2,9 @@
 
 {% block content %}
 {{ super() }}
-{% for cat, msg in get_flashed_messages(True) %}
+<!-- {% for cat, msg in get_flashed_messages(True) %}
     <div class="flash {{cat}}">{{msg}}</div>
-{% endfor %}
+{% endfor %} -->
 <body class="pick_body">
     <div class="head_btns">
         <a class="my-btn" href="/profile" role="button">Профиль</a>

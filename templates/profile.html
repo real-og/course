@@ -2,9 +2,9 @@
 
 {% block content %}
 {{ super() }}
-{% for cat, msg in get_flashed_messages(True) %}
+<!-- {% for cat, msg in get_flashed_messages(True) %}
 <div class="flash {{cat}}">{{msg}}</div>
-{% endfor %}
+{% endfor %} -->
 
 <body class="profile_body">
     <div class="head_btns">
@@ -15,6 +15,32 @@
 
         <a class="my-btn" href="{{url_for('logout')}}" role="button" style="margin-left: 18%;">Выйти</a>
     </div>
+    <div class="prof-info">
+        <h2>{{info['name']}}</h2>
+        <table>
+            <tr>
+                <td>Возраст</td>
+                <td>{{info['age']}}</td>
+            </tr>
+            <tr>
+                <td>email</td>
+                <td>{{info['email']}}</td>
+            </tr>
+            <tr>
+                <td>Dsexbk ckjd</td>
+                <td>{{word_count}}</td>
+            </tr>
+            <tr>
+                <td>Выучил песен</td>
+                <td>{{song_count}}</td>
+            </tr>
+            <tr>
+                <td>С нами с </td>
+                <td>{{info['joinDate']}}</td>
+            </tr>
+        </table>
+    </div>
+
     <div class="info">
         <div>Имя: {{info['name']}}</div>
         <div>Возраст: {{info['age']}}</div>

@@ -115,3 +115,8 @@ input {
 	-ms-transition: box-shadow .5s ease;
 	transition: box-shadow .5s ease;
 }
+
+.prof-info {
+	border-color: #000;
+	
+}
