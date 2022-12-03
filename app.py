@@ -54,7 +54,6 @@ def login():
 @login_required
 def logout():
     logout_user()
-    flash("Ты вышел, бра", 'success')
     return redirect(url_for('index'))
 
 
