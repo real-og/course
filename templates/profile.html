@@ -15,41 +15,40 @@
 
         <a class="my-btn" href="{{url_for('logout')}}" role="button" style="margin-left: 18%;">Выйти</a>
     </div>
-    <div class="prof-info">
-        <h2>{{info['name']}}</h2>
-        <table>
+
+
+    <div class="card">
+        <img id="card-img" src="../static/images/profile_d.png" alt="John" style="width:100%">
+        <h1>{{info['name']}}</h1>
+        <p class="title">Пользователь</p>
+        
+        <table class="prof_table">
             <tr>
-                <td>Возраст</td>
-                <td>{{info['age']}}</td>
+                <td>Возраст:</td>
+                <td class="t_info"><b>{{info['age']}}</b></td>
             </tr>
             <tr>
-                <td>email</td>
-                <td>{{info['email']}}</td>
+                <td>email:</td>
+                <td class="t_info"><b>{{info['email']}}</b></td>
             </tr>
             <tr>
-                <td>Dsexbk ckjd</td>
-                <td>{{word_count}}</td>
+                <td>Выучил слов:</td>
+                <td class="t_info"><b>{{word_count}}</b></td>
             </tr>
             <tr>
-                <td>Выучил песен</td>
-                <td>{{song_count}}</td>
+                <td>Выучил песен:</td>
+                <td class="t_info"><b>{{song_count}}</b></td>
             </tr>
             <tr>
-                <td>С нами с </td>
-                <td>{{info['joinDate']}}</td>
+                <td>С нами с:</td>
+                <td class="t_info"><b>{{info['joinDate']}}</b></td>
             </tr>
         </table>
+
     </div>
 
-    <div class="info">
-        <div>Имя: {{info['name']}}</div>
-        <div>Возраст: {{info['age']}}</div>
-        <div>email: {{info['email']}}</div>
-        <div>С нами с: {{info['joinDate']}}</div>
-        <div>role: {{info['role']}}</div>
-        <div>Выучил слов: {{word_count}}</div>
-        <div>Выучил песен: {{song_count}}</div>
-    </div> 
+
+   
 
 </body>
 

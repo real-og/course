@@ -58,6 +58,7 @@ a {
 	background-image: url(../images/back1_t.png);
 }
 .dict_body {
+	
 	background-image: url(../images/back5_t.png);
 }
 .find_body {
@@ -118,5 +119,68 @@ input {
 
 .prof-info {
 	border-color: #000;
-	
+	box-shadow: 0 0 5px 2px red;
 }
+
+
+
+.card {
+    box-shadow: 0 9px 18px 0 rgba(0, 0, 0, 0.7);
+    max-width: 350px;
+    margin: auto;
+    text-align: center;
+	opacity: 0.8;
+}
+
+.title {
+    color: grey;
+    font-size: 18px;
+}
+
+td{
+	text-align: left;
+}
+
+
+a {
+    text-decoration: none;
+    font-size: 22px;
+    color: black;
+}
+
+button:hover, a:hover {
+    opacity: 0.7;
+}
+
+.prof_table {
+	font-size: 18px;
+}
+
+
+.t_info{
+	text-align: center;
+}
+
+@keyframes fade {
+	from {
+	 opacity: 0;
+	 }
+	 to {
+	  opacity: 0.8;
+	 }
+   }
+   
+   
+.flash {
+	border-radius: 280px/100px;
+	box-shadow: 0 9px 18px 0 rgba(0, 0, 0, 0.7);
+    max-width: 350px;
+	min-height: 35px;
+    margin: auto;
+	font-size: large;
+	background-color: #bb1c27;
+    text-align: center;
+	opacity: 0.8;
+	margin-top: 11%;
+	animation: fade 2s ease;
+   }

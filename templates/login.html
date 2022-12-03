@@ -3,7 +3,7 @@
 {% block content %}
 {{ super() }}
 {% for cat, msg in get_flashed_messages(True) %}
-<div class="flash {{cat}}">{{msg}}</div>
+<div class="flash"><b>{{msg}}</b></div>
 {% endfor %}
 <body class="login_body">
 
