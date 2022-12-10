@@ -14,7 +14,10 @@ class LyricsParser:
     def __init__(self, url):
         self.url = url
         try:
-            self.page = requests.get(url)
+            proxies = {
+            'http': 'http://45.130.68.19:8000',
+            }
+            self.page = requests.get(url, proxies=proxies, auth=('ad9CDd', 'EbAxCG'))
             self.soup = BeautifulSoup(self.page.text, "html.parser")
         except Exception as e:
             print(e)
