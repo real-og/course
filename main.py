@@ -10,7 +10,7 @@ import json
 
 #app config
 DEBUG = True
-SECRET_KEY = os.environ.get('secret_key')
+SECRET_KEY = 'gydwt5qw7dh'
 app = Flask(__name__)
 app.config.from_object(__name__)
 login_manager = LoginManager(app)
