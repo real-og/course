@@ -1,5 +1,5 @@
 CREATE USER 'english_app' IDENTIFIED BY 'english_pass';
-GRANT ALL PRIVILEGES ON english.* TO 'english_appp';
+GRANT ALL PRIVILEGES ON english.* TO 'english_app';
 
 CREATE TABLE IF NOT EXISTS roles
 (

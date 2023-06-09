@@ -28,9 +28,9 @@ class Database(object):
     def __init__(self):
         self.conn = mysql.connector.connect(
             database='english',
-            user='english_appp',
+            user='english_app',
             password='english_pass',
-            host='146.148.39.77',
+            host='127.0.0.1',
             port='3306'
         )
         self.curs = self.conn.cursor(dictionary=True)
