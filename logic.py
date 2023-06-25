@@ -7,7 +7,7 @@ import string
 
 import lyricsgenius as lg
 
-api_key = str(os.environ.get('database'))
+api_key = str(os.environ.get('genius_token'))
 
 
 def get_lyrics(name, author):
