@@ -141,7 +141,7 @@ def get_word_count_by_user(email):
                     on user_word.iduser = (select id from users where email = '{email}')
                     and user_word.idword = words.id;"""
         curs.execute(_SQL)
-        return curs.fetchone()['count(*)']
+        return curs.fetchone()[0]
 
 def get_song_count_by_user(email):
     with Database() as curs:
@@ -150,7 +150,7 @@ def get_song_count_by_user(email):
                     on song_user.iduser = (select id from users where email = '{email}')
                     and song_user.idsong = songs.id;"""
         curs.execute(_SQL)
-        return curs.fetchone()['count(*)']
+        return curs.fetchone()[0]
 
 def get_words_by_user(email) -> list(()):
     with Database() as curs:
