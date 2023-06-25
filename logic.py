@@ -13,11 +13,21 @@ def create_url(input, start='https://genius.com/'):
 class LyricsParser:
     def __init__(self, url):
         self.url = url
+        print(url)
         try:
             proxies = {
             'http': 'http://45.130.68.19:8000',
             }
-            self.page = requests.get(url, proxies=proxies, auth=('ad9CDd', 'EbAxCG'))
+            headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'}
+            # self.page = requests.get(url, proxies=proxies, auth=('ad9CDd', 'EbAxCG'))
+            resp = requests.get(url, headers=headers)
+            print(resp)
+            with open('test.html', 'w') as f:
+                f.write(resp.text)
+            
+
+            self.page = resp
+           
             self.soup = BeautifulSoup(self.page.text, "html.parser")
         except Exception as e:
             print(e)

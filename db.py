@@ -1,39 +1,22 @@
 import os
-import mysql.connector
+import psycopg2
+from psycopg2.extras import DictCursor
 from deep_translator import GoogleTranslator
 import logic
 
 
 translator = GoogleTranslator(source='en', target='ru')
 
-# class Database(object):
-#     def __init__(self):
-#         self.conn = mysql.connector.connect(
-#             database=str(os.environ.get('database')),
-#             user=str(os.environ.get('user')),
-#             password=str(os.environ.get('password')),
-#             host=str(os.environ.get('host')),
-#             port=str(os.environ.get('port'))
-#         )
-#         self.curs = self.conn.cursor(dictionary=True)
-
-#     def __enter__(self):
-#         return self.curs
-
-#     def __exit__(self, exc_type, exc_val, exc_tb):
-#         self.conn.commit()
-#         self.conn.close()
-
 class Database(object):
     def __init__(self):
-        self.conn = mysql.connector.connect(
-            database='english',
-            user='english_app',
-            password='english_pass',
-            host='127.0.0.1',
-            port='3306'
+        self.conn = psycopg2.connect(
+            database=str(os.environ.get('database')),
+            user=str(os.environ.get('user')),
+            password=str(os.environ.get('password')),
+            host=str(os.environ.get('host')),
+            port=str(os.environ.get('port'))
         )
-        self.curs = self.conn.cursor(dictionary=True)
+        self.curs = self.conn.cursor(cursor_factory=DictCursor)
 
     def __enter__(self):
         return self.curs
