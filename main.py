@@ -101,7 +101,9 @@ def study_track(track_uuid):
         flash('Добавлено', 'success')
         db.add_song_to_user(current_user.get_id(), request.form['track_name'], request.form['author'])
         return redirect(url_for('study_track',  track_uuid=track_uuid, name=request.form['track_name'], author=request.form['author']))
-    lyrics = logic.LyricsParser('https://genius.com/' + track_uuid).get_lyrics()
+    
+    lyrics = logic.get_lyrics(request.args.get('name'), request.args.get('author'))
+
     if not len(lyrics):
         lyrics = 'Упс, не смог найти...'
     return render_template("study_track.html",
@@ -114,12 +116,11 @@ def study_track(track_uuid):
 @app.route('/show-unknown/<track_uuid>')
 @login_required
 def show_new(track_uuid):
-    lyrics = logic.LyricsParser('https://genius.com/' + track_uuid).get_lyrics()
+    lyrics = logic.get_lyrics(request.args.get('name'), request.args.get('author'))
     unknown = logic.get_unknown_by_user(current_user.get_id(), lyrics.split())
     if not len(unknown):
         unknown = "Поздравляю, ты всё знаешь!"
     return render_template("pick.html", unknown=unknown, count=len(unknown))
-
 
 
 
@@ -144,14 +145,8 @@ def add():
 def delete():
     if request.method == 'POST':
         text = json.loads(request.data).get('text')
-        print(text)
         db.delete_word_from_user(current_user.get_id(), text)
         return 'great'
-
-
-
-
-
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')

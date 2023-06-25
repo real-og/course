@@ -23,7 +23,7 @@
         {% endautoescape %}
     </div>
     <div style="padding: 3%; text-align: center;">
-        <a class="my-btn" href="{{url_for('show_new', track_uuid=name + '-lyrics')}}">Показать незнакомые</a>
+        <a class="my-btn" href="{{url_for('show_new', track_uuid=name + '-lyrics', name=name, author=author)}}">Показать незнакомые</a>
         <div>
             <form action="" method="post">
                 <input name="author" type="hidden" value="{{track_name}}"/>

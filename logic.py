@@ -26,11 +26,11 @@ def get_word_list(name, author):
     return words
 
 # input is author + space + track name. if start default then Genius link otherwise simple uuid
-# def create_url(input, start='https://genius.com/'):
-#     url = start
-#     for word in input.capitalize().split(' '):
-#         url = url + word + '-'
-#     return url + 'lyrics'
+def create_url(input, start='https://genius.com/'):
+    url = start
+    for word in input.capitalize().split(' '):
+        url = url + word + '-'
+    return url + 'lyrics'
 
 # class LyricsParser:
 #     def __init__(self, url):
