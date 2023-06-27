@@ -7,6 +7,7 @@ from user import User
 import logic
 import json
 import time
+import ai_helper
 
 
 #app config
@@ -154,7 +155,7 @@ def delete():
 def get_explaination():
     if request.method == "POST":
         selected_text = json.loads(request.data).get('selectedText')
-        return 'Mock explaiiininniin in in  n njndn fnn jf jdfndf   djfnjd   dfjndfn d f  jdjf  df   j dnf'
+        return ai_helper.get_explanation(selected_text)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')
