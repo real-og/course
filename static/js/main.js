@@ -58,10 +58,11 @@ document.addEventListener('DOMContentLoaded', function() {
   
         // Обработчик нажатия на кнопку "Отправить"
         var sendButton = document.getElementById('sendButton');
+        sendButton.style.display = 'block';
         sendButton.onclick = function() {
           // Отображаем текст "Одну минуту..." во время ожидания
           popupText.textContent = 'Одну минуту...';
-  
+          sendButton.style.display = 'none';
           // Формируем объект с выделенным текстом
           var data = {
             selectedText: selectedText
