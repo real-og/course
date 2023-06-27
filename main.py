@@ -6,6 +6,7 @@ import db
 from user import User
 import logic
 import json
+import time
 
 
 #app config
@@ -147,6 +148,13 @@ def delete():
         text = json.loads(request.data).get('text')
         db.delete_word_from_user(current_user.get_id(), text)
         return 'great'
+    
+
+@app.route('/get_explaination/', methods=['GET', 'POST'])
+def get_explaination():
+    if request.method == "POST":
+        selected_text = json.loads(request.data).get('selectedText')
+        return 'Mock explaiiininniin in in  n njndn fnn jf jdfndf   djfnjd   dfjndfn d f  jdjf  df   j dnf'
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')

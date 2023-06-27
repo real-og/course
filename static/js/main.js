@@ -59,14 +59,27 @@ document.addEventListener('DOMContentLoaded', function() {
         // Обработчик нажатия на кнопку "Отправить"
         var sendButton = document.getElementById('sendButton');
         sendButton.onclick = function() {
-          // Отправляем POST-запрос на сервер с выделенным текстом
-          var xhr = new XMLHttpRequest();
-          xhr.open('POST', '/your-server-endpoint', true);
-          xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-          xhr.send('selectedText=' + encodeURIComponent(selectedText));
+          // Отображаем текст "Одну минуту..." во время ожидания
+          popupText.textContent = 'Одну минуту...';
   
-          // Закрываем всплывающее окно
-          popup.style.display = 'none';
+          // Формируем объект с выделенным текстом
+          var data = {
+            selectedText: selectedText
+          };
+  
+          // Отправляем POST-запрос на сервер с выделенным текстом в формате JSON
+          var xhr = new XMLHttpRequest();
+          xhr.open('POST', '/get_explaination', true);
+          xhr.setRequestHeader('Content-Type', 'application/json');
+  
+          xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+              // При получении ответа от сервера
+              popupText.textContent = xhr.responseText; // Отображаем ответ от сервера
+            }
+          };
+  
+          xhr.send(JSON.stringify(data));
         };
       } else {
         // Если выделение пустое, скрываем всплывающее окно
@@ -74,3 +87,4 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   });
+  
