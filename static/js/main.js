@@ -37,4 +37,40 @@ $(document).ready(function(){
     })
 })
 
-
+document.addEventListener('DOMContentLoaded', function() {
+    // Получаем ссылку на всплывающее окно
+    var popup = document.getElementById('popup');
+  
+    // При отпускании кнопки мыши после выделения текста
+    document.addEventListener('mouseup', function(event) {
+      var selectedText = window.getSelection().toString().trim();
+  
+      // Проверяем, что выделенный текст не пустой
+      if (selectedText !== '') {
+        // Показываем всплывающее окно рядом с выделением
+        popup.style.display = 'block';
+        popup.style.top = event.pageY + 'px';
+        popup.style.left = event.pageX + 'px';
+  
+        // Устанавливаем выделенный текст во всплывающем окне
+        var popupText = document.getElementById('popupText');
+        popupText.textContent = selectedText;
+  
+        // Обработчик нажатия на кнопку "Отправить"
+        var sendButton = document.getElementById('sendButton');
+        sendButton.onclick = function() {
+          // Отправляем POST-запрос на сервер с выделенным текстом
+          var xhr = new XMLHttpRequest();
+          xhr.open('POST', '/your-server-endpoint', true);
+          xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+          xhr.send('selectedText=' + encodeURIComponent(selectedText));
+  
+          // Закрываем всплывающее окно
+          popup.style.display = 'none';
+        };
+      } else {
+        // Если выделение пустое, скрываем всплывающее окно
+        popup.style.display = 'none';
+      }
+    });
+  });
