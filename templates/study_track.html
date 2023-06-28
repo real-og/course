@@ -17,7 +17,8 @@
         <div id="popupText"></div>
         <button id="sendButton">Отправить</button>
     </div>
-    <h1><b>{{name}}</b></h1>
+    <h1><b>{{track_name.capitalize()}}</b></h1>
+    <h3><b><i>{{author.title()}}</i></b></h3>
     <h4>[незнакомых слов: {{count}}]</h4>
     <div class="lyrics">
         {% autoescape false %}
