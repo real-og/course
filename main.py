@@ -77,10 +77,13 @@ def register():
 @app.route('/profile')
 @login_required
 def profile():
+    user_info = current_user.get_user()
     return render_template("profile.html",
-                            info=current_user.get_user(),
+                            info=user_info,
                             word_count=db.get_word_count_by_user(current_user.get_id()),
-                            song_count=db.get_song_count_by_user(current_user.get_id()))
+                            song_count=db.get_song_count_by_user(current_user.get_id()),
+                            age_since_redister=logic.get_age_by_date(user_info.get('joindate'))
+            )
 
 @app.route('/dictionary')
 @login_required

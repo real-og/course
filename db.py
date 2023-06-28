@@ -180,6 +180,9 @@ def get_songs_by_artists(artists):
             _SQL += f"'{artist}', "
         curs.execute(_SQL[:-2] + ');')
         return curs.fetchall()
+    
+# def add_full_lyrics(email, words):
+
 
 
         

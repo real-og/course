@@ -4,6 +4,8 @@ import re
 import db
 import os
 import string
+import datetime
+from dateutil.relativedelta import relativedelta
 
 import lyricsgenius as lg
 
@@ -34,43 +36,6 @@ def create_url(input, start='https://genius.com/'):
         url = url + word + '-'
     return url + 'lyrics'
 
-# class LyricsParser:
-#     def __init__(self, url):
-#         self.url = url
-#         try:
-#             proxies = {
-#             'http': 'http://45.130.68.19:8000',
-#             }
-#             headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'}
-#             # self.page = requests.get(url, proxies=proxies, auth=('ad9CDd', 'EbAxCG'))
-#             resp = requests.get(url, headers=headers)
-#             print(resp)
-#             with open('test.html', 'w') as f:
-#                 f.write(resp.text)
-            
-
-#             self.page = resp
-           
-#             self.soup = BeautifulSoup(self.page.text, "html.parser")
-#         except Exception as e:
-#             print(e)
-#             self.page = 'bam'
-#             self.soup = BeautifulSoup('bang', "html.parser")
-#         self.lyrics_blocks = self.soup.findAll(class_="Lyrics__Container-sc-1ynbvzw-6 YYrds") 
-
-#     def get_lyrics(self) -> str:
-#         lyrics = ''
-#         for block in self.lyrics_blocks:
-#             lyrics = lyrics + '\n' + block.get_text('\n')
-#         return lyrics
-
-#     def get_word_list(self):
-#         words = list()
-#         for block in self.lyrics_blocks:
-#             words = words + re.findall('[’a-z$\'-]+', block.get_text('\n').lower())
-#         return words
-
-
 
 def get_unknown_by_user(email, words):
     result = []
@@ -89,3 +54,25 @@ def prettify_word(word):
     for s in symbols:
         word = word.replace(s, '')
     return word.replace('$', 's').lower().replace("`", "’").replace("'", "’")
+
+def get_age_by_date(register_date):
+    current_date = datetime.datetime.now()
+    time_difference = relativedelta(current_date, register_date)
+
+    years = time_difference.years
+    months = time_difference.months
+    weeks = time_difference.weeks
+    days = time_difference.days
+    hours = time_difference.hours
+    minutes = time_difference.minutes
+    seconds = time_difference.seconds
+
+    period_values = [years, months, weeks, days, hours, minutes, seconds]
+    period_names = ['years', 'months', 'weeks', 'days', 'hours', 'minutes', 'seconds']
+
+
+    index = next(i for i, x in enumerate(period_values) if x != 0)
+
+    time_string = f"{period_values[index]} {period_names[index]}"
+
+    return time_string
