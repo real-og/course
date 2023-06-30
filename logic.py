@@ -23,11 +23,8 @@ def get_lyrics(name, author):
     return lyrics
 
 def get_word_list(name, author):
-    lyrics = get_lyrics(name, author)
-    words = lyrics.split()
-    for word in words:
-        word = prettify_word(word)
-    return words
+    return prettify_lyrics_to_list(get_lyrics(name, author))
+
 
 # input is author + space + track name. if start default then Genius link otherwise simple uuid
 def create_url(input, start='https://genius.com/'):
@@ -49,11 +46,21 @@ def get_unknown_by_user(email, words):
             result.append(prettify_word(word))
     return result
 
+
 def prettify_word(word):
     symbols = '!.,&?[]1234567890:;())@#%^*+=~…—'
     for s in symbols:
         word = word.replace(s, '')
-    return word.replace('$', 's').lower().replace("`", "’").replace("'", "’")
+    result = word.replace('$', 's').lower().replace("`", "’").replace("'", "’")
+    return result
+
+def prettify_lyrics_to_list(lyrics):
+    words = lyrics.split()
+    new_words = []
+    for word in words:
+        new_words.append(prettify_word(word))
+    return new_words
+
 
 def get_age_by_date(register_date):
     current_date = datetime.datetime.now()
@@ -70,9 +77,7 @@ def get_age_by_date(register_date):
     period_values = [years, months, weeks, days, hours, minutes, seconds]
     period_names = ['years', 'months', 'weeks', 'days', 'hours', 'minutes', 'seconds']
 
-
     index = next(i for i, x in enumerate(period_values) if x != 0)
-
     time_string = f"{period_values[index]} {period_names[index]}"
 
     return time_string

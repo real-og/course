@@ -31,6 +31,7 @@ CREATE TABLE words
     word varchar(21) NOT NULL,
     translate varchar(111)
 );
+CREATE UNIQUE INDEX idx_unique_word ON words (word);
 
 CREATE TABLE songs
 (
@@ -47,7 +48,8 @@ CREATE TABLE user_word
     idUSER int NOT NULL,
     isKnown boolean,
     FOREIGN KEY (idWord) REFERENCES words (id) ON DELETE CASCADE,
-    FOREIGN KEY (idUser) REFERENCES users (id) ON DELETE CASCADE
+    FOREIGN KEY (idUser) REFERENCES users (id) ON DELETE CASCADE,
+    CONSTRAINT unique_pair UNIQUE (idWord, idUser)
 );
 
 CREATE TABLE song_user

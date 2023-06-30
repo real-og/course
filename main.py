@@ -8,6 +8,8 @@ import logic
 import json
 import time
 import ai_helper
+ 
+import test
 
 
 #app config
@@ -102,13 +104,16 @@ def study():
 @app.route('/study/<track_uuid>', methods=['GET', 'POST'])
 @login_required
 def study_track(track_uuid):
+    lyrics = logic.get_lyrics(request.args.get('name'), request.args.get('author'))
+
+    
+
     if request.method == "POST":
         flash('Добавлено', 'success')
         db.add_song_to_user(current_user.get_id(), request.form['track_name'], request.form['author'])
+        db.add_full_lyrics(current_user.get_id(), lyrics)
         return redirect(url_for('study_track',  track_uuid=track_uuid, name=request.form['track_name'], author=request.form['author']))
     
-    lyrics = logic.get_lyrics(request.args.get('name'), request.args.get('author'))
-
     if not len(lyrics):
         lyrics = 'Упс, не смог найти...'
     return render_template("study_track.html",
