@@ -40,24 +40,61 @@ $(document).ready(function(){
 document.addEventListener('DOMContentLoaded', function() {
     // Получаем ссылку на всплывающее окно
     var popup = document.getElementById('popup');
+    var sendButton = document.getElementById('sendButton');
   
     // При отпускании кнопки мыши после выделения текста
     document.addEventListener('mouseup', function(event) {
       var selectedText = window.getSelection().toString().trim();
   
+
+
+
+
+
+
       // Проверяем, что выделенный текст не пустой
       if (selectedText !== '') {
+        // Получаем объект Range для выделения
+        var selectionRange = window.getSelection().getRangeAt(0);
+  
+        // Получаем прямоугольник выделения
+        var selectionRect = selectionRange.getBoundingClientRect();
+  
+        // Получаем позицию прокрутки окна
+        var scrollY = window.scrollY || window.pageYOffset;
+  
         // Показываем всплывающее окно рядом с выделением
         popup.style.display = 'block';
-        popup.style.top = event.pageY + 'px';
-        popup.style.left = event.pageX + 'px';
   
+        // Проверяем, есть ли достаточно места сверху для отображения окна
+        var spaceAbove = selectionRect.top - popup.offsetHeight;
+  
+        if (spaceAbove > 0) {
+          // Если есть место сверху, отображаем окно над выделением
+          popup.style.top = (selectionRect.top + scrollY - popup.offsetHeight) + 'px';
+        } else {
+          // Если места сверху недостаточно, отображаем окно под выделением
+          popup.style.top = (selectionRect.top + scrollY + selectionRect.height) + 'px';
+        }
+  
+        popup.style.left = selectionRect.left + 'px';
+        popup.style.width = Math.max(selectionRect.width, sendButton.offsetWidth + sendButton.width) + 'px';
+  
+
+
+
+
+
+
+
+
+
         // Устанавливаем выделенный текст во всплывающем окне
         var popupText = document.getElementById('popupText');
         popupText.textContent = selectedText;
   
         // Обработчик нажатия на кнопку "Отправить"
-        var sendButton = document.getElementById('sendButton');
+        
         sendButton.style.display = 'block';
         sendButton.onclick = function() {
           // Отображаем текст "Одну минуту..." во время ожидания
