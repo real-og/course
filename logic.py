@@ -19,7 +19,7 @@ def get_lyrics(name, author):
     song = genius.search_song(name, author)
     lyrics_dirty = song.lyrics
     index_to_cut = lyrics_dirty.find('Lyrics')
-    lyrics = lyrics_dirty[index_to_cut + 6:-5]
+    lyrics = lyrics_dirty[index_to_cut + 6:-5].rstrip('0123456789')
     return lyrics
 
 def get_word_list(name, author):
