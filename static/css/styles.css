@@ -194,3 +194,12 @@ button:hover, a:hover {
 	margin-top: 11%;
 	animation: fade 2s ease;
    }
+
+.highlight {
+	background-color: rgba(255, 192, 203, 0.5); /* Прозрачный розовый фон (альфа-канал 0.5) */
+	color: #000000; /* Черный цвет текста */
+  }
+  .high{
+	color: #ffe;
+	background-color: #000;
+}

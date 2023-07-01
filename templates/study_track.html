@@ -17,22 +17,26 @@
         <div id="popupText"></div>
         <button id="sendButton">Отправить</button>
     </div>
-    <h1><b>{{track_name.capitalize()}}</b></h1>
-    <h3><b><i>{{author.title()}}</i></b></h3>
+
+    <h1 id="track_name"><b>{{track_name.capitalize()}}</b></h1>
+    <h3 id="author_name"><b><i>{{author.title()}}</i></b></h3>
     <h4>[незнакомых слов: {{count}}]</h4>
-    <div class="lyrics">
+
+    <div class="lyrics" id="textContainer">
         {% autoescape false %}
         {% for word in lyrics %}
         <b>{{word}}</b>
         {% endfor %}
         {% endautoescape %}
     </div>
+
     <div style="padding: 3%; text-align: center;">
+        <button class="my-btn" id="highlightUnknown" onclick="highlightText()">Подсветить незнакомое</button>
         <a class="my-btn" href="{{url_for('show_new', track_uuid=name + '-lyrics', name=name, author=author)}}">Показать незнакомые</a>
         <div>
             <form action="" method="post">
-                <input name="author" type="hidden" value="{{track_name}}"/>
-                <input name="track_name" type="hidden"  value="{{author}}"/>
+                <input name="author" type="hidden" value="{{author}}"/>
+                <input name="track_name" type="hidden"  value="{{track_name}}"/>
                 <button type="submit" class="my-btn">Добавить трек</button>
             </form>
         </div>

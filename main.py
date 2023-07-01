@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, flash, redirect, url_for
+from flask import Flask, render_template, request, flash, redirect, url_for, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 import db
@@ -164,6 +164,17 @@ def get_explaination():
     if request.method == "POST":
         selected_text = json.loads(request.data).get('selectedText')
         return ai_helper.get_explanation(selected_text)
+    
+
+@app.route('/get_unknown/', methods=['POST'])
+@login_required
+def get_unknown():
+    if request.method == "POST":
+        email = current_user.get_id()
+        lyrics_to_check = request.get_data(as_text=True)
+        r = {'highlightedWords': logic.get_unknown_by_user(email, lyrics_to_check.split())}
+        return r
+    
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')

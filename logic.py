@@ -34,13 +34,13 @@ def create_url(input, start='https://genius.com/'):
     return url + 'lyrics'
 
 
-def get_unknown_by_user(email, words):
+def get_unknown_by_user(email, words_to_check):
     result = []
-    if type(words) == 'str':
-        words = words.split()
-    known = db.get_words_by_user(email)
-    known_english_words = [c[0] for c in known]
-    for word in words:
+    if type(words_to_check) == 'str':
+        words_to_check = words_to_check.split()
+    known_words = db.get_words_by_user(email)
+    known_english_words = [c[0] for c in known_words]
+    for word in words_to_check:
         word = prettify_word(word)
         if not(word in known_english_words) and not(word in result):
             result.append(prettify_word(word))
@@ -48,7 +48,7 @@ def get_unknown_by_user(email, words):
 
 
 def prettify_word(word):
-    symbols = '!.,&?[]1234567890:;())@#%^*+=~…—'
+    symbols = '!.,&?[]1234567890:;())@#%^*+=~…—"'
     for s in symbols:
         word = word.replace(s, '')
     result = word.replace('$', 's').lower().replace("`", "’").replace("'", "’")
