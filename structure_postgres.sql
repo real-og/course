@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS users
     role int default 3,
     FOREIGN KEY (role) REFERENCES roles (id) ON DELETE SET NULL
 );
+ALTER TABLE users ADD COLUMN photo bytea;
 
 CREATE TABLE words
 (

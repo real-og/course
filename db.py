@@ -204,7 +204,17 @@ def get_songs_by_artists(artists):
         curs.execute(_SQL[:-2] + ');')
         return curs.fetchall()
     
-# def add_full_lyrics(email, words):
+def change_photo_by_user(email, photo):
+    with Database() as curs:
+        _SQL = f"UPDATE users SET photo = {psycopg2.Binary(photo)} WHERE email = '{email}';"
+        curs.execute(_SQL)
+
+
+def get_photo_by_user(email):
+    with Database() as curs:
+        _SQL =f"select photo from users where email = '{email}'"
+        curs.execute(_SQL)
+        return curs.fetchone()['photo']
 
 
 

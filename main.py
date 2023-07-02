@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, flash, redirect, url_for, jso
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 import db
+from werkzeug.utils import secure_filename
 from user import User
 import logic
 import json
@@ -174,6 +175,16 @@ def get_unknown():
         lyrics_to_check = request.get_data(as_text=True)
         r = {'highlightedWords': logic.get_unknown_by_user(email, lyrics_to_check.split())}
         return r
+    
+@app.route('/upload-avatar', methods=['POST'])
+@login_required
+def upload_avatar():
+    avatar = request.files['avatar']
+    filename = secure_filename(avatar.filename)
+    print(filename)
+    photo_data = avatar.read()
+    db.change_photo_by_user(current_user.get_id(), photo_data)
+    return jsonify({'message': 'Аватарка успешно загружена'})
     
 
 if __name__ == "__main__":

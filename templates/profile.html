@@ -19,6 +19,11 @@
 
     <div class="card">
         <img id="card-img" src="../static/images/profile_d.png" alt="John" style="width:100%">
+        <form id="avatar-form" enctype="multipart/form-data">
+            <input type="file" name="avatar" id="avatar-input">
+            <button type="submit">Загрузить аватарку</button>
+          </form>
+          
         <h1>{{info['name']}}</h1>
         <p class="title">Пользователь</p>
         
@@ -49,7 +54,7 @@
 
 
    
-
+    <script src="../static/js/submit_photo.js"></script>
 </body>
 
 
