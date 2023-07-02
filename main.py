@@ -8,6 +8,7 @@ from user import User
 import logic
 import json
 import time
+import base64
 import ai_helper
  
 import test
@@ -81,7 +82,13 @@ def register():
 @login_required
 def profile():
     user_info = current_user.get_user()
+    if user_info['photo'] is None:
+        photo = '../static/images/profile_d.png'
+    else:
+        
+        photo = f"data:image/jpeg;base64,{base64.b64encode(user_info['photo']).decode('utf-8')}"
     return render_template("profile.html",
+                            photo = photo,
                             info=user_info,
                             word_count=db.get_word_count_by_user(current_user.get_id()),
                             song_count=db.get_song_count_by_user(current_user.get_id()),
