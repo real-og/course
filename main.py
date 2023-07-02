@@ -98,7 +98,7 @@ def profile():
 @login_required
 def dictionary():
     words = db.get_words_by_user(current_user.get_id())
-    return render_template("dictionary.html", words=words, tracks=['Maru Nara twox'])
+    return render_template("dictionary.html", words=words)
 
 @app.route('/study', methods=["POST", "GET"])
 @login_required
@@ -199,9 +199,7 @@ def change_user_translation():
     email = current_user.get_id()
     word = json.loads(request.data).get('word')
     translation = json.loads(request.data).get('translation')
-    print(email)
-    print(word)
-    print(translation)
+    db.change_custom_translate(email, word, translation)
     return jsonify({'message': 'успех'})
     
 

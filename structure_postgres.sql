@@ -46,18 +46,19 @@ CREATE TABLE user_word
 (
     id serial primary key NOT NULL,
     idWord int NOT NULL,
-    idUSER int NOT NULL,
+    idUser int NOT NULL,
     isKnown boolean,
     FOREIGN KEY (idWord) REFERENCES words (id) ON DELETE CASCADE,
     FOREIGN KEY (idUser) REFERENCES users (id) ON DELETE CASCADE,
     CONSTRAINT unique_pair UNIQUE (idWord, idUser)
 );
+ALTER TABLE user_word ADD COLUMN custom_translate varchar(111);
 
 CREATE TABLE song_user
 (
     id serial primary key NOT NULL,
     idSong int NOT NULL,
-    idUSER int NOT NULL,
+    idUser int NOT NULL,
     isKnown boolean,
     startDate timestamp default NOW(),
     FOREIGN KEY (idSong) REFERENCES songs (id) ON DELETE CASCADE,

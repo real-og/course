@@ -46,7 +46,6 @@ translations.forEach(translation => {
       .then(response => response.json())
       .then(data => {
         // Обработка ответа от сервера
-        console.log(data); // Пример обработки ответа
         
         translation.style.display = 'inline';
         parentTd.querySelector('.translation').textContent = newTranslation;

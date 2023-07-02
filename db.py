@@ -177,13 +177,15 @@ def get_song_count_by_user(email):
 
 def get_words_by_user(email) -> list(()):
     with Database() as curs:
-        _SQL = f"""select word, translate
-                    from user_word inner join words
-                    on user_word.iduser = (select id from users where email = '{email}')
-                    and user_word.idword = words.id order by word;"""
+        _SQL = f"""SELECT w.word, COALESCE(uw.custom_translate, w.translate) AS translation
+                   FROM users u
+                   JOIN user_word uw ON u.id = uw.iduser
+                   JOIN words w ON uw.idword = w.id
+                   WHERE u.email = '{email}';"""
         curs.execute(_SQL)
         res = curs.fetchall()
-        return [(tupl['word'], tupl['translate']) for tupl in res]
+        return [(tupl[0], tupl[1]) for tupl in res]
+        # return [(tupl['word'], tupl['translate']) for tupl in res]
         
 
 def get_top_by_words():
@@ -215,6 +217,22 @@ def get_photo_by_user(email):
         _SQL =f"select photo from users where email = '{email}'"
         curs.execute(_SQL)
         return curs.fetchone()['photo']
+    
+def change_custom_translate(email, word, new_translate):
+    with Database() as curs:
+        _SQL = f"""UPDATE user_word
+                   SET custom_translate = '{new_translate}'
+                   WHERE iduser = (
+                   SELECT id
+                   FROM users
+                   WHERE email = '{email}'
+                   )
+                   AND idword = (
+                   SELECT id
+                   FROM words
+                   WHERE word = '{word}'
+                   );"""
+        curs.execute(_SQL)
 
 
 
