@@ -85,7 +85,6 @@ def profile():
     if user_info['photo'] is None:
         photo = '../static/images/profile_d.png'
     else:
-        
         photo = f"data:image/jpeg;base64,{base64.b64encode(user_info['photo']).decode('utf-8')}"
     return render_template("profile.html",
                             photo = photo,
@@ -188,10 +187,11 @@ def get_unknown():
 def upload_avatar():
     avatar = request.files['avatar']
     filename = secure_filename(avatar.filename)
-    print(filename)
     photo_data = avatar.read()
-    db.change_photo_by_user(current_user.get_id(), photo_data)
-    return jsonify({'message': 'Аватарка успешно загружена'})
+    if logic.is_photo(filename):
+        db.change_photo_by_user(current_user.get_id(), photo_data)
+        return jsonify({'message': 'Аватарка успешно загружена'})
+    return jsonify({'message': 'Неверный тип файла'})
     
 
 if __name__ == "__main__":

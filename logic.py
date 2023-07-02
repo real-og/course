@@ -81,3 +81,8 @@ def get_age_by_date(register_date):
     time_string = f"{period_values[index]} {period_names[index]}"
 
     return time_string
+
+def is_photo(filename):
+    ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'png', 'gif'}
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
