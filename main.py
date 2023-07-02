@@ -192,6 +192,17 @@ def upload_avatar():
         db.change_photo_by_user(current_user.get_id(), photo_data)
         return jsonify({'message': 'Аватарка успешно загружена'})
     return jsonify({'message': 'Неверный тип файла'})
+
+@app.route('/change_user_translation', methods=['POST'])
+@login_required
+def change_user_translation():
+    email = current_user.get_id()
+    word = json.loads(request.data).get('word')
+    translation = json.loads(request.data).get('translation')
+    print(email)
+    print(word)
+    print(translation)
+    return jsonify({'message': 'успех'})
     
 
 if __name__ == "__main__":

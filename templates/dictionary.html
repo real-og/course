@@ -30,14 +30,15 @@
         <tbody>
         {% for word in words %}
             <tr class="dlt-row">
-                <td class="count"></th>
-                <td>{{word[0]}}</td>
-                <td>{{word[1]}}</td>
+                <th class="count"></th>
+                <td><span class="word">{{word[0]}}</span></td>
+                <td><span class="translation">{{word[1]}}</span></td>
                 <td style="text-align: end;"><b>&#10008;</b></td>
             </tr>
         {% endfor %}
         </tbody>
       </table>
 </div>
+<script src="../static/js/change_translation.js"></script>
 </body>
 {% endblock %}
