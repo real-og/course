@@ -86,3 +86,25 @@ def is_photo(filename):
     ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'png', 'gif'}
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+import concurrent.futures
+from deep_translator import GoogleTranslator
+
+
+def remove_duplicates(arr):
+    return list(set(arr))
+    
+def translate_word(word):
+    translator = GoogleTranslator(source='en', target='ru')
+    translation = translator.translate(word)
+    return word, translation
+
+def translate_words(words) -> dict:
+    translations = dict()
+    words = remove_duplicates(words)
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        futures = [executor.submit(translate_word, word) for word in words]
+        for future in concurrent.futures.as_completed(futures):
+            word, translation = future.result()
+            translations[word] = translation
+    return translations

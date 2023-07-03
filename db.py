@@ -72,13 +72,20 @@ def add_word_to_user(email, word):
 
 def add_full_lyrics(email, lyrics):
     words = logic.prettify_lyrics_to_list(lyrics)
+    
+    words_and_translations = logic.translate_words(words)
+    
+
     with Database() as curs:
         _SQL = f"""insert into words (word, translate) values """
-        for word in words:
-            _SQL += f"('{word}', 'mock'), "
-        
+
+        for word, trans in words_and_translations.items():
+            print(word, trans)
+            _SQL += f"('{word}', '{trans}'), "
+
         _SQL = _SQL[:-2] + " ON CONFLICT (word) DO NOTHING;"
         curs.execute(_SQL)
+
         _SQL = f"""WITH user_id_cte AS (
                    SELECT id FROM users WHERE email = '{email}'
                    )
@@ -86,7 +93,8 @@ def add_full_lyrics(email, lyrics):
                    SELECT user_id_cte.id, words.id  
                    FROM user_id_cte, words  
                    WHERE words.word IN ("""
-        for word in words:
+        for word in words_and_translations.keys():
+            print(word)
             _SQL += f"'{word}', "
         _SQL = _SQL[:-2] + ") on conflict do nothing;"
         curs.execute(_SQL)
